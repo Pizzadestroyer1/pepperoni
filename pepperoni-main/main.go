@@ -2,8 +2,17 @@ package pepperoni_main
 
 import (
 	"fmt"
+	"net/http"
+	"os"
 )
 
 func main() {
-	fmt.Printf("Hell")
+
+	port := os.Getenv("PORT")
+
+	http.HandleFunc("/hello", func(w http.ResponseWriter, request *http.Request) {
+		fmt.Fprintf(w, "World")
+	})
+
+	http.ListenAndServe(":"+port, nil)
 }
